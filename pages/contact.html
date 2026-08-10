@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description"
+        content="Contact Muhammad Hibban for front-end development and UI/UX design collaborations.">
+    <title>Contact — Muhammad Hibban</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&family=Poppins:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='3' y='3' width='94' height='94' rx='20' fill='%230f172a'/%3E%3Ctext x='50' y='67' font-family='Arial,sans-serif' font-size='55' font-weight='700' text-anchor='middle' fill='%2338bdf8'%3EH%3C/text%3E%3C/svg%3E">
+</head>
+
+<body data-page="contact">
+    <div class="page-loader"><span></span></div>
+    <div class="cursor-glow"></div>
+    <div class="ambient ambient-two"></div>
+    <header id="site-header"></header>
+    <main>
+        <section class="contact-page section-shell">
+            <div class="contact-intro reveal">
+                <p class="eyebrow">Contact</p>
+                <h1>Have an idea?<br>Let’s make it <em>real.</em></h1>
+                <p class="lede">Tell me a little about the thing you want to bring into the world. I’ll get back to you
+                    within two business days.</p>
+                <div class="contact-details"><a href="mailto:hibbanfarhan.17@gmail.com"><i
+                            class="fa-regular fa-envelope"></i><span>Email
+                            me<br><strong>hibbanfarhan.17@gmail.com</strong></span></a>
+                    <div><i class="fa-solid fa-location-dot"></i><span>Working
+                            remotely<br><strong>Worldwide</strong></span></div>
+                </div>
+                <div class="social-row">
+                    <a href="https://www.linkedin.com/in/hibban-farhan" aria-label="LinkedIn">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/hibbanfarhan17-ctrl" aria-label="GitHub">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="contact-form-wrap reveal delay-1">
+                <p class="form-overline">Project enquiry</p>
+                <form id="contactForm" novalidate>
+                    <div class="form-row"><label>Name<input name="name" autocomplete="name" required
+                                placeholder="Your name"><small></small></label><label>Email<input name="email"
+                                type="email" autocomplete="email" required
+                                placeholder="you@example.com"><small></small></label></div><label>What can I help
+                        with?<select name="subject" required>
+                            <option value="">Choose a service</option>
+                            <option>Front-End Development</option>
+                            <option>UI/UX Design</option>
+                            <option>Website Redesign</option>
+                            <option>Something else</option>
+                        </select><small></small></label><label>Tell me about it<textarea name="message" rows="5"
+                            required
+                            placeholder="A few words about your project, timeline and goals..."></textarea><small></small></label><button
+                        class="btn btn-primary" type="submit">Send enquiry <i
+                            class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                </form>
+                <div class="form-success" hidden><i class="fa-solid fa-check"></i>
+                    <h2>Thank you!</h2>
+                    <p>Your message is on its way. I’ll be in touch soon.</p>
+                </div>
+            </div>
+        </section>
+        <section class="map-placeholder section-shell reveal">
+            <div>
+                <p class="section-kicker">Around the world</p>
+                <h2>Distance doesn’t limit<br>good <em>collaboration.</em></h2>
+            </div>
+            <div class="map-art"><i class="pin pin-one"></i><i class="pin pin-two"></i><i
+                    class="pin pin-three"></i><span>From Pakistan,<br>for everywhere.</span></div>
+        </section>
+    </main>
+    <footer id="site-footer"></footer>
+    <div class="toast" role="status"></div><button class="back-top" aria-label="Back to top"><i
+            class="fa-solid fa-arrow-up"></i></button>
+    <script src="../app.js" defer></script>
+</body>
+
+</html>
