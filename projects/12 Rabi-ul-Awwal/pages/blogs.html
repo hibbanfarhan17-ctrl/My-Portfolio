@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Blogs — Stories of Seerah, Faith & Reflection | 12 Rabi ul Awwal</title>
+<meta name="description" content="Thoughtful articles about the life, character, teachings, and lessons connected to the Seerah of Prophet Muhammad ﷺ." />
+<link rel="canonical" href="https://example.com/blogs.html" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Blogs — Stories of Seerah, Faith & Reflection" />
+<link rel="stylesheet" href="../style.css" />
+</head>
+<body data-page="blogs">
+
+<div class="scene-layer" aria-hidden="true"></div>
+<div class="page-transition" aria-hidden="true"></div>
+
+<!-- NAVBAR STYLE 3: BLOG -->
+<header class="nav-blog">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-brand">☾ 12 Rabi ul Awwal</a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="blogs.html" class="active">Blogs</a>
+      <a href="blogs.html#categories">Categories</a>
+      <a href="blogs.html#featured">Featured</a>
+    </nav>
+    <div class="nav-icons">
+      <button class="nav-icon-btn" aria-label="Search" onclick="document.querySelector('.blog-search input').focus()">⚲</button>
+      <button class="nav-mobile-toggle mobile-nav-toggle" aria-label="Open menu"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu">
+  <button class="close-btn" aria-label="Close menu">✕</button>
+  <a href="../index.html">Home</a>
+  <a href="seerah.html">Seerah</a>
+  <a href="timeline.html">Timeline</a>
+  <a href="teachings.html">Teachings</a>
+  <a href="teachings.html">Mercy</a>
+  <a href="hadith.html">Hadith</a>
+  <a href="blogs.html">Blogs</a>
+  <a href="reflection.html">Reflection</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="about.html">About</a>
+</div>
+
+<main>
+  <section class="blog-hero container">
+    <p class="eyebrow" style="justify-content:center;">Read</p>
+    <h1>Stories of Seerah, Faith &amp; Reflection</h1>
+    <p>Explore thoughtful articles about the life, character, teachings, and lessons connected to the Seerah.</p>
+
+    <div class="blog-search">
+      <input type="text" data-blog-search placeholder="Search articles..." aria-label="Search articles" />
+      <span class="search-icon" aria-hidden="true">⚲</span>
+    </div>
+
+    <div class="category-filters" id="categories">
+      <button class="category-pill is-active" data-category-pill="All">All</button>
+      <button class="category-pill" data-category-pill="Seerah">Seerah</button>
+      <button class="category-pill" data-category-pill="12 Rabi ul Awwal">12 Rabi ul Awwal</button>
+      <button class="category-pill" data-category-pill="Character">Character</button>
+      <button class="category-pill" data-category-pill="Mercy">Mercy</button>
+      <button class="category-pill" data-category-pill="History">History</button>
+      <button class="category-pill" data-category-pill="Islamic Knowledge">Islamic Knowledge</button>
+    </div>
+  </section>
+
+  <section class="section" id="featured" style="padding-top:20px;">
+    <div class="container">
+      <div class="featured-article glass" data-reveal>
+        <div class="media">
+          <img src="https://images.unsplash.com/photo-1564769625392-651b2c17ea55?q=80&w=1000&auto=format&fit=crop" alt="Manuscript and lantern representing the Seerah" loading="lazy" />
+        </div>
+        <div>
+          <div class="featured-tags">
+            <span class="badge">Featured</span>
+            <span class="text-muted">Seerah</span>
+            <span class="text-muted">8 min read</span>
+          </div>
+          <h3>Why the Seerah Still Matters Today</h3>
+          <p>The life of the Prophet ﷺ is studied not as distant history, but as a living reference point for character, patience, and leadership — one that continues to shape how millions navigate daily life.</p>
+<a href="article-1.html" class="btn btn-gold">Read Story <span class="btn-arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="blog-results-meta">
+        <span data-results-count>6 articles</span>
+        <span class="text-muted">Latest first</span>
+      </div>
+      <div class="blog-grid" data-blog-grid></div>
+      <div class="blog-empty" data-blog-empty>
+        <p>No articles found. Try another search.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="subscribe-panel glass" data-reveal>
+        <h3>Stay Connected</h3>
+        <p>Receive new reflections and articles.</p>
+        <form class="subscribe-form" onsubmit="event.preventDefault(); this.reset(); this.querySelector('button').textContent='Subscribed ✓';">
+          <input type="email" required placeholder="Your email address" aria-label="Email address" />
+          <button type="submit" class="btn btn-gold">Subscribe</button>
+        </form>
+        <p class="subscribe-note">No spam. Unsubscribe anytime.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-glow" aria-hidden="true"></div>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h3>12 Rabi ul Awwal</h3>
+        <p>A digital space for remembering the life and character of Prophet Muhammad ﷺ, built with care, restraint, and respect for sound sourcing.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="seerah.html">Seerah</a>
+          <a href="timeline.html">Timeline</a>
+          <a href="teachings.html">Teachings</a>
+          <a href="teachings.html">Mercy</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="hadith.html">Hadith</a>
+          <a href="blogs.html">Blogs</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="about.html#sources">Sources</a>
+        </div>
+        <div class="footer-col">
+          <h4>Project</h4>
+          <a href="about.html">About</a>
+          <a href="about.html#contact">Contact</a>
+          <a href="about.html#privacy">Privacy</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-tagline">Remember. Reflect. Live.</span>
+      <span class="footer-meta">© 2026 · 12 Rabi ul Awwal</span>
+    </div>
+  </div>
+</footer>
+
+<script>window.SCENE_CONFIG = { crescent: false, particleCount: 120, starCount: 1200 };</script>
+  <script src="../app.js" defer></script>
+</body>
+</html>
+
+
+
