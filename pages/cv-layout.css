@@ -15,7 +15,7 @@ body {
     background: #edf3f0;
     color: var(--ink);
     font: 15px/1.55 "DM Sans", Arial, sans-serif;
-    padding: 36px 18px;
+    padding: clamp(16px, 3vw, 36px) clamp(12px, 2vw, 18px);
 }
 
 .resume {
@@ -23,7 +23,7 @@ body {
     min-height: 1400px;
     margin: auto;
     display: grid;
-    grid-template-columns: 320px 1fr;
+    grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
     background: #fff;
     box-shadow: 0 20px 55px rgba(10, 56, 44, .16);
 }
@@ -272,5 +272,38 @@ article>p {
 
     .entry ul {
         columns: 1;
+    }
+}
+
+@media (max-width:420px) {
+    .resume-side,
+    .resume-content {
+        padding: 30px 20px;
+    }
+
+    .profile img {
+        width: 96px;
+        height: 96px;
+    }
+
+    .profile h1 {
+        font-size: 26px;
+    }
+
+    .resume-content header h1 {
+        font-size: 34px;
+    }
+
+    .role {
+        font-size: 12px;
+    }
+
+    .quick-contact {
+        display: grid;
+        gap: 7px;
+    }
+
+    .strengths {
+        grid-template-columns: 1fr;
     }
 }

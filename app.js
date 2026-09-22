@@ -149,7 +149,11 @@
   const menu = header.querySelector('.menu-btn');
   const navLinks = header.querySelector('.nav-links');
   const back = document.querySelector('.back-top');
-  menu?.addEventListener('click', () => { const open = navLinks.classList.toggle('open'); menu.setAttribute('aria-expanded', open); menu.querySelector('i').className = `fa-solid fa-${open ? 'xmark' : 'bars'}`; });
+  const closeMenu = () => { navLinks.classList.remove('open'); menu?.setAttribute('aria-expanded', 'false'); const icon = menu?.querySelector('i'); if (icon) icon.className = 'fa-solid fa-bars'; };
+  menu?.addEventListener('click', () => { const open = navLinks.classList.toggle('open'); menu.setAttribute('aria-expanded', String(open)); menu.querySelector('i').className = `fa-solid fa-${open ? 'xmark' : 'bars'}`; });
+  navLinks?.addEventListener('click', event => { if (event.target.closest('a')) closeMenu(); });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') closeMenu(); });
+  window.addEventListener('resize', () => { if (window.innerWidth > 800) closeMenu(); }, { passive: true });
   window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', scrollY > 15); back?.classList.toggle('show', scrollY > 500); }, { passive: true });
   back?.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
 

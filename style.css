@@ -30,7 +30,8 @@ body.dark-theme {
 }
 
 html {
-    scroll-behavior: smooth
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%
 }
 
 body {
@@ -40,6 +41,11 @@ body {
     font: 400 15px/1.65 Inter, Arial, sans-serif;
     overflow-x: hidden;
     transition: background .35s, color .35s
+}
+
+img,
+svg {
+    max-width: 100%
 }
 
 a {
@@ -59,7 +65,7 @@ button {
 }
 
 .section-shell {
-    width: min(1160px, calc(100% - 64px));
+    width: min(1160px, calc(100% - clamp(32px, 5vw, 64px)));
     margin-inline: auto
 }
 
@@ -141,7 +147,7 @@ button {
 }
 
 .nav-inner {
-    width: min(1240px, calc(100% - 48px));
+    width: min(1240px, calc(100% - clamp(32px, 4vw, 48px)));
     height: 82px;
     margin: auto;
     display: flex;
@@ -293,7 +299,7 @@ button {
     min-height: calc(100vh - 82px);
     display: grid;
     grid-template-columns: 1.05fr .95fr;
-    gap: 30px;
+    gap: clamp(24px, 4vw, 56px);
     align-items: center;
     position: relative;
     padding-block: 82px
@@ -661,7 +667,7 @@ h2 em,
 .intro-grid {
     display: grid;
     grid-template-columns: 1.35fr .65fr;
-    gap: 100px;
+    gap: clamp(40px, 8vw, 100px);
     align-items: end
 }
 
@@ -1199,7 +1205,7 @@ footer {
 .about-story {
     display: grid;
     grid-template-columns: .78fr 1.22fr;
-    gap: 120px;
+    gap: clamp(45px, 8vw, 120px);
     padding-bottom: 145px
 }
 
@@ -1343,7 +1349,7 @@ footer {
     padding-bottom: 145px;
     display: grid;
     grid-template-columns: .8fr 1.2fr;
-    gap: 80px
+    gap: clamp(40px, 6vw, 80px)
 }
 
 .timeline article {
@@ -1828,7 +1834,7 @@ footer {
 .contact-page {
     display: grid;
     grid-template-columns: .9fr 1.1fr;
-    gap: 95px;
+    gap: clamp(42px, 7vw, 95px);
     padding: 105px 0 125px
 }
 
@@ -2171,7 +2177,7 @@ form small {
 }
 @media(max-width:800px) {
     .section-shell {
-        width: min(100% - 38px, 600px)
+        width: min(100% - 38px, 720px)
     }
 
     .nav-inner {
@@ -2419,6 +2425,70 @@ form small {
     }
 }
 
+/* Tablet and compact laptop refinements */
+@media (min-width: 801px) and (max-width: 1100px) {
+    .nav-inner {
+        height: 76px
+    }
+
+    .nav-links {
+        gap: clamp(14px, 2.5vw, 24px)
+    }
+
+    .hero {
+        min-height: calc(100vh - 76px);
+        padding-block: 64px
+    }
+
+    .hero-art {
+        height: 405px;
+        transform: scale(.88);
+        transform-origin: center
+    }
+
+    .hero-proof {
+        gap: 15px
+    }
+
+    .hero-proof span {
+        font-size: 9px
+    }
+
+    .project-showcase {
+        gap: 20px
+    }
+
+    .feature-project {
+        min-height: 365px;
+        padding: 24px
+    }
+
+    .project-meta h3 {
+        font-size: 25px
+    }
+
+    .process-grid {
+        grid-template-columns: repeat(2, 1fr)
+    }
+
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr)
+    }
+
+    .service-card {
+        min-height: 340px
+    }
+
+    .footer-top {
+        grid-template-columns: 1.25fr .75fr .75fr
+    }
+
+    .footer-top .footer-col:last-child {
+        grid-column: 1 / -1;
+        max-width: 340px
+    }
+}
+
 @media(max-width:480px) {
     .section-shell {
         width: calc(100% - 30px)
@@ -2433,7 +2503,12 @@ form small {
 
     .hero-actions {
         flex-direction: column;
-        align-items: flex-start
+        align-items: stretch;
+        width: 100%
+    }
+
+    .hero-actions .btn {
+        justify-content: center
     }
 
     .hero-art {
@@ -2569,6 +2644,62 @@ form small {
     .error-page h1 {
         font-size: 55px;
         letter-spacing: -3px
+    }
+}
+
+@media (max-width:360px) {
+    .nav-inner {
+        width: calc(100% - 24px)
+    }
+
+    .brand {
+        font-size: 21px
+    }
+
+    .nav-tools {
+        gap: 0
+    }
+
+    .icon-btn {
+        width: 35px;
+        height: 35px
+    }
+
+    .hero h1,
+    .page-hero h1,
+    .contact-intro h1 {
+        font-size: 36px
+    }
+
+    .hero-art {
+        height: 285px
+    }
+
+    .panel-main {
+        width: 230px;
+        height: 208px
+    }
+
+    .orbit-one {
+        width: 265px;
+        height: 265px
+    }
+
+    .orbit-two {
+        width: 190px;
+        height: 190px
+    }
+
+    .card-code {
+        right: -2px
+    }
+
+    .filter {
+        padding: 6px 10px
+    }
+
+    .contact-form-wrap {
+        padding: 18px
     }
 }
 
