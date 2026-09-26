@@ -167,3 +167,94 @@
   window.addEventListener('mousemove', event => { const glow = document.querySelector('.cursor-glow'); if (glow) { glow.style.left = `${event.clientX}px`; glow.style.top = `${event.clientY}px`; } }, { passive: true });
   window.addEventListener('load', () => document.querySelector('.page-loader')?.classList.add('done'));
 })();
+
+/* Portfolio Assistant: local portfolio answers first, then a protected LLM fallback. */
+(() => {
+  const page = document.body.dataset.page || 'home';
+  const contactUrl = page === 'home' ? 'pages/contact.html' : 'contact.html';
+  const projectsUrl = page === 'home' ? 'pages/projects.html' : 'projects.html';
+  const aboutUrl = page === 'home' ? 'pages/about.html' : 'about.html';
+  const servicesUrl = page === 'home' ? 'pages/services.html' : 'services.html';
+
+  const knowledge = [
+    { terms: ['who is hibban', 'who is muhammad hibban', 'hibban', 'muhammad hibban', 'about hibban', 'about you', 'introduce'], reply: `Muhammad Hibban is a front-end developer and UI/UX designer. He designs and builds clear, responsive digital experiences with care for both visual details and the people using them. <a href="${aboutUrl}">Learn more about Hibban</a>.` },
+    { terms: ['skills', 'technologies', 'tech stack', 'what do you use', 'html', 'css', 'javascript', 'figma', 'webflow'], reply: `Hibban works with HTML, CSS, JavaScript, Figma, Webflow and UI systems. His focus is responsive front-end builds and considered user experiences.` },
+    { terms: ['services', 'what do you do', 'what can hibban do', 'hire', 'offer', 'front end', 'frontend', 'ui ux', 'redesign', 'landing page', 'design system', 'portfolio design'], reply: `Hibban offers front-end development, UI/UX design, website redesigns, landing-page design, portfolio design and design systems. <a href="${servicesUrl}">See the services</a>.` },
+    { terms: ['projects', 'work', 'portfolio', 'student management', 'sms', '14 august', 'independence', 'rabi ul awwal', 'milad', 'calculator'], reply: `Hibban’s featured work includes a Student Management System, a 14 August Special website, a 12 Rabi ul Awwal Special website and a browser calculator. <a href="${projectsUrl}">Explore the projects</a>.` },
+    { terms: ['contact', 'email', 'whatsapp', 'linkedin', 'github', 'get in touch', 'message', 'reach'], reply: `You can contact Hibban at <a href="mailto:hibbanfarhan.17@gmail.com">hibbanfarhan.17@gmail.com</a>, or use the <a href="${contactUrl}">contact form</a>. He also has LinkedIn, GitHub and WhatsApp links on the site.` },
+    { terms: ['experience', 'years', 'syntecxhub', 'career', 'job', 'worked'], reply: `Hibban has 1+ years of experience and has delivered 12 projects. He is currently a Front-End Developer at Syntecxhub, collaborating with early-stage companies and creative teams.` },
+    { terms: ['location', 'where', 'pakistan', 'remote', 'worldwide', 'country'], reply: `Hibban is based in Pakistan and works remotely with clients worldwide.` },
+    { terms: ['price', 'pricing', 'cost', 'budget', 'quote', 'rate'], reply: `Project pricing depends on scope, timeline and goals. Send a few details through the <a href="${contactUrl}">contact form</a> to request a tailored quote.` }
+  ];
+
+  const findLocalAnswer = question => {
+    const normalized = question.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!normalized) return 'Please type a question and I’ll do my best to help.';
+    if (/^(hi|hello|hey|assalam|salam|good morning|good evening)\b/.test(normalized)) return `Hello! I’m Hibban’s portfolio assistant. Ask me about Hibban, his skills, services, projects or how to get in touch.`;
+    const match = knowledge.map(item => ({ item, score: item.terms.reduce((score, term) => {
+      if (!normalized.includes(term)) return score;
+      // “Hibban” is a useful fallback, but must not hide a more specific question such as “Hibban projects”.
+      return score + ((term === 'hibban' || term === 'muhammad hibban') ? .2 : term.split(' ').length);
+    }, 0) })).sort((a, b) => b.score - a.score)[0];
+    return match?.score ? match.item.reply : null;
+  };
+
+  document.body.insertAdjacentHTML('beforeend', `
+    <section class="portfolio-chat" aria-label="Chat with Hibban's portfolio assistant">
+      <div class="portfolio-chat__panel" id="portfolioChatPanel" hidden>
+        <div class="portfolio-chat__header"><div><span class="portfolio-chat__status" aria-hidden="true"></span><strong>Ask Hibban’s AI</strong><small>Offline portfolio answers + Puter AI</small></div><button type="button" class="portfolio-chat__close" aria-label="Close chat"><i class="fa-solid fa-xmark"></i></button></div>
+        <div class="portfolio-chat__messages" aria-live="polite" role="log"><article class="portfolio-chat__message portfolio-chat__message--bot">Hi! I can answer portfolio questions offline. Ask “Who is Hibban?” or try a question of your own.</article></div>
+        <div class="portfolio-chat__suggestions" aria-label="Suggested questions"><button type="button">Who is Hibban?</button><button type="button">What are his skills?</button><button type="button">Show projects</button></div>
+        <form class="portfolio-chat__form"><label class="sr-only" for="portfolioChatInput">Your question</label><input id="portfolioChatInput" name="question" autocomplete="off" maxlength="600" placeholder="Ask a question…" required><button type="submit" aria-label="Send question"><i class="fa-solid fa-arrow-up"></i></button></form>
+      </div>
+      <button class="portfolio-chat__launcher" type="button" aria-controls="portfolioChatPanel" aria-expanded="false"><i class="fa-solid fa-comment-dots"></i><span>Ask Hibban</span></button>
+    </section>`);
+
+  const chat = document.querySelector('.portfolio-chat');
+  const panel = chat.querySelector('.portfolio-chat__panel');
+  const launcher = chat.querySelector('.portfolio-chat__launcher');
+  const close = chat.querySelector('.portfolio-chat__close');
+  const form = chat.querySelector('.portfolio-chat__form');
+  const input = chat.querySelector('input');
+  const messages = chat.querySelector('.portfolio-chat__messages');
+  const addMessage = (content, role = 'bot', isHtml = false) => {
+    const message = document.createElement('article');
+    message.className = `portfolio-chat__message portfolio-chat__message--${role}`;
+    if (isHtml) message.innerHTML = content; else message.textContent = content;
+    messages.append(message);
+    messages.scrollTop = messages.scrollHeight;
+    return message;
+  };
+  const setOpen = open => { panel.hidden = !open; launcher.setAttribute('aria-expanded', String(open)); if (open) setTimeout(() => input.focus(), 80); };
+  const puterContext = `You are the helpful portfolio assistant for Muhammad Hibban. Use only these verified facts for claims about Hibban: he is a front-end developer and UI/UX designer based in Pakistan, working remotely worldwide; his skills include HTML, CSS, JavaScript, Figma, Webflow and UI systems; services include front-end development, UI/UX design, website redesign, landing pages, portfolio design and design systems; projects include Student Management System, 14 August Special, 12 Rabi ul Awwal Special and Calculator; he has 1+ years of experience, 12 delivered projects, and works at Syntecxhub. His email is hibbanfarhan.17@gmail.com. Keep replies short, warm, accurate and useful. Never invent private details, pricing or availability.`;
+  const loadPuter = () => {
+    if (window.puter?.ai) return Promise.resolve(window.puter);
+    return new Promise((resolve, reject) => {
+      const existing = document.querySelector('script[data-puter-sdk]');
+      if (existing) { existing.addEventListener('load', () => resolve(window.puter)); existing.addEventListener('error', reject); return; }
+      const sdk = document.createElement('script');
+      sdk.src = 'https://js.puter.com/v2/';
+      sdk.dataset.puterSdk = 'true';
+      sdk.onload = () => window.puter?.ai ? resolve(window.puter) : reject(new Error('Puter AI did not load'));
+      sdk.onerror = () => reject(new Error('Puter AI could not load'));
+      document.head.append(sdk);
+    });
+  };
+  const askAi = async question => {
+    const thinking = addMessage('Thinking…', 'bot');
+    try {
+      const puter = await loadPuter();
+      const response = await puter.ai.chat([{ role: 'system', content: puterContext }, { role: 'user', content: question }], { model: 'grok-4.7', normalize: true });
+      const answer = response?.message?.content;
+      if (!answer) throw new Error('Puter AI did not return an answer');
+      thinking.textContent = answer;
+    } catch {
+      thinking.innerHTML = `I don’t have an offline answer for that yet, and Puter AI is unavailable. Try asking about Hibban, his skills, services, projects or <a href="${contactUrl}">contact details</a>.`;
+    }
+  };
+  launcher.addEventListener('click', () => setOpen(panel.hidden));
+  close.addEventListener('click', () => setOpen(false));
+  chat.querySelectorAll('.portfolio-chat__suggestions button').forEach(button => button.addEventListener('click', () => { input.value = button.textContent; form.requestSubmit(); }));
+  form.addEventListener('submit', event => { event.preventDefault(); const question = input.value.trim(); if (!question) return; addMessage(question, 'user'); input.value = ''; const localAnswer = findLocalAnswer(question); if (localAnswer) addMessage(localAnswer, 'bot', true); else askAi(question); });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape' && !panel.hidden) setOpen(false); });
+})();
